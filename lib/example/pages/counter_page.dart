@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_veeery_bloc/blocks/counter.dart';
+import '../blocks/counter.dart';
 
 class CounterPage extends StatelessWidget {
 
@@ -24,6 +24,7 @@ class CounterPage extends StatelessWidget {
               const SizedBox(height: 20),
               buildBlocListener(),
               const SizedBox(height: 20),
+              buildBlocConsumer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -47,6 +48,43 @@ class CounterPage extends StatelessWidget {
     );
   }
 
+  Widget buildBlocConsumer() {
+    //Tidak Ada buildWhen tidak masalah
+    //BlocConsumer = Gabungan antara BlocBuilder & BlocListener
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10)),
+      width: 200,
+      height: 100,
+      child: Center(
+        child: BlocConsumer<CounterBloc, int>(
+          bloc: bloc,
+          buildWhen: (previous, current) {
+            if (current==10) {
+              return false;
+            } else {
+              return true;
+            }
+          },
+          builder:((context, state) {
+            return Text('ini Bloc Consumer = $state');
+          }),
+          listener: (context, state) {
+            return print("$state");
+          },
+          // listenWhen: (context, state) {
+          //   if (state == 10) {
+          //     return true;
+          //   } else {
+          //     return false;
+          //   }
+          // },
+        ),
+      ),
+    );
+  }
+
   Widget buildBlocListener() {
     return Container(
         width: 200,
@@ -60,14 +98,15 @@ class CounterPage extends StatelessWidget {
             BlocListener(
               bloc: bloc,
               listener: (context, state) {
-                print(state);
-                if (state == 4) {
-                  bloc.counter = 10;
-                  bloc.sink.add(bloc.counter);
-
-                  bloc.emit(state=10);
-
-                };
+                print("Sudah");
+              },
+              listenWhen: (previous, current) {
+                if (current == 20) {
+                  print("INI");
+                  return true;
+                } else {
+                  return false;
+                }
               },
               child: buildBlocBuilder()
             ),

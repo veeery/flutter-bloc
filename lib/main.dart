@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_veeery_bloc/pages/counter_page.dart';
+import 'example/pages/counter_page.dart';
+
 
 void main() {
   runApp(const MyApp());
