@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../blocks/counter.dart';
+import 'package:flutter_veeery_bloc/example/blocks/counter.dart';
+import 'package:flutter_veeery_bloc/example/pages/app_routes.dart';
 
 class CounterPage extends StatelessWidget {
 
@@ -8,11 +9,16 @@ class CounterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('test');
     return Scaffold(
       backgroundColor: Colors.amber,
       appBar: AppBar(
         title: Text("Counter Page"),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.keyboard_arrow_right),
+        onPressed: () {
+          Navigator.pushNamed(context, AppPages.counter2);
+        },
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -25,22 +31,8 @@ class CounterPage extends StatelessWidget {
               buildBlocListener(),
               const SizedBox(height: 20),
               buildBlocConsumer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        bloc.decrease();
-                      },
-                      icon: const Icon(Icons.remove)),
-                  IconButton(
-                      onPressed: () {
-                        // bloc.inputController.add('add');
-                        bloc.increment();
-                      },
-                      icon: const Icon(Icons.add)),
-                ],
-              )
+
+
             ],
           ),
         ),
