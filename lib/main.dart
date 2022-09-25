@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_veeery_bloc/example/pages/app_routes.dart';
-import 'package:flutter_veeery_bloc/example/pages/example_pages/counter_page.dart';
+import 'package:flutter_veeery_bloc/example/pages/home/home_view.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: AppRoutes.routes,
-      home: CounterPage(),
+      home: Home(),
     );
   }
 }
